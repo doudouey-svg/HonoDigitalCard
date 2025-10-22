@@ -3,6 +3,9 @@ const urlParams = new URLSearchParams(window.location.search);
 const employeeId = urlParams.get('id') || '1'; // Default to ID 1 if no parameter
 
 let currentEmployee = null;
+let currentSlide = 0;
+let carouselImages = [];
+let autoSlideInterval = null;
 
 // Load employee data
 async function loadEmployeeData() {
@@ -51,11 +54,9 @@ function populateCard(employee) {
     profileImg.src = employee.profileImage;
     profileImg.alt = employee.name;
     
-    // Update video
-    const videoSource = document.getElementById('videoSource');
-    const video = document.getElementById('bannerVideo');
-    videoSource.src = employee.videoUrl;
-    video.load();
+    // Initialize carousel with dish images
+    carouselImages = employee.dishImages || [];
+    initializeCarousel();
     
     // Update page title
     document.title = `${employee.name} - Digital Namecard`;
@@ -68,22 +69,80 @@ function showError(message) {
     document.getElementById('companyName').textContent = '';
 }
 
-// Video loading handling
-const video = document.getElementById('bannerVideo');
-const placeholder = document.getElementById('videoPlaceholder');
+// Carousel Functions
+function initializeCarousel() {
+    const carouselSlide = document.getElementById('carouselSlide');
+    const carouselIndicators = document.getElementById('carouselIndicators');
+    
+    // Clear existing content
+    carouselSlide.innerHTML = '';
+    carouselIndicators.innerHTML = '';
+    
+    // Add images to carousel
+    carouselImages.forEach((imageSrc, index) => {
+        const img = document.createElement('img');
+        img.src = imageSrc;
+        img.alt = `Dish ${index + 1}`;
+        carouselSlide.appendChild(img);
+        
+        // Create indicator
+        const indicator = document.createElement('div');
+        indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+        indicator.onclick = () => goToSlide(index);
+        carouselIndicators.appendChild(indicator);
+    });
+    
+    // Start auto-slide
+    startAutoSlide();
+}
 
-video.addEventListener('loadeddata', function() {
-    placeholder.style.display = 'none';
-    video.style.display = 'block';
+function changeSlide(direction) {
+    const totalSlides = carouselImages.length;
+    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+    updateCarousel();
+    resetAutoSlide();
+}
+
+function goToSlide(index) {
+    currentSlide = index;
+    updateCarousel();
+    resetAutoSlide();
+}
+
+function updateCarousel() {
+    const carouselSlide = document.getElementById('carouselSlide');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    carouselSlide.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentSlide);
+    });
+}
+
+function startAutoSlide() {
+    autoSlideInterval = setInterval(() => {
+        changeSlide(1);
+    }, 4000); // Change slide every 4 seconds
+}
+
+function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    startAutoSlide();
+}
+
+// Stop auto-slide when user hovers over carousel
+document.addEventListener('DOMContentLoaded', function() {
+    const carouselBanner = document.querySelector('.carousel-banner');
+    if (carouselBanner) {
+        carouselBanner.addEventListener('mouseenter', () => {
+            clearInterval(autoSlideInterval);
+        });
+        carouselBanner.addEventListener('mouseleave', () => {
+            startAutoSlide();
+        });
+    }
 });
-
-video.addEventListener('error', function() {
-    placeholder.style.display = 'flex';
-    video.style.display = 'none';
-});
-
-// Initially hide video until it loads
-video.style.display = 'none';
 
 // vCard download function
 function downloadVCard() {
