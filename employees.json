@@ -1,0 +1,40 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "John Anderson",
+      "jobTitle": "Chief Executive Officer",
+      "company": "Your Company Name",
+      "email": "john.anderson@company.com",
+      "phone": "+1 (234) 567-890",
+      "address": "123 Business St, City, State 12345",
+      "website": "https://www.company.com",
+      "profileImage": "https://via.placeholder.com/120",
+      "videoUrl": "YOUR_VIDEO_URL.mp4"
+    },
+    {
+      "id": "2",
+      "name": "Sarah Johnson",
+      "jobTitle": "Chief Technology Officer",
+      "company": "Your Company Name",
+      "email": "sarah.johnson@company.com",
+      "phone": "+1 (234) 567-891",
+      "address": "123 Business St, City, State 12345",
+      "website": "https://www.company.com",
+      "profileImage": "https://via.placeholder.com/120",
+      "videoUrl": "YOUR_VIDEO_URL.mp4"
+    },
+    {
+      "id": "3",
+      "name": "Michael Chen",
+      "jobTitle": "Sales Director",
+      "company": "Your Company Name",
+      "email": "michael.chen@company.com",
+      "phone": "+1 (234) 567-892",
+      "address": "123 Business St, City, State 12345",
+      "website": "https://www.company.com",
+      "profileImage": "https://via.placeholder.com/120",
+      "videoUrl": "YOUR_VIDEO_URL.mp4"
+    }
+  ]
+}
