@@ -42,9 +42,9 @@ function populateCard(employee) {
     
     document.getElementById('address').textContent = employee.address;
     
-    const websiteElement = document.getElementById('website');
-    websiteElement.textContent = employee.website;
-    websiteElement.href = employee.website;
+    // Update reservation button
+    const reserveBtn = document.getElementById('reserveBtn');
+    reserveBtn.href = employee.reservationUrl;
     
     // Update profile image
     const profileImg = document.getElementById('profileImg');
@@ -92,7 +92,7 @@ function downloadVCard() {
         return;
     }
     
-    const { name, jobTitle, company, email, phone, address, website } = currentEmployee;
+    const { name, jobTitle, company, email, phone, address } = currentEmployee;
 
     // Create vCard content
     const vCard = `BEGIN:VCARD
@@ -103,7 +103,6 @@ ORG:${company}
 EMAIL:${email}
 TEL:${phone}
 ADR:;;${address}
-URL:${website}
 END:VCARD`;
 
     // Create blob and download
