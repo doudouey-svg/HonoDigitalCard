@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.card-container {
+    max-width: 500px;
+    width: 100%;
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.video-banner {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    background: #1a1a1a;
+}
+
+.video-banner video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+}
+
+.profile-section {
+    padding: 30px;
+    text-align: center;
+    background: #000;
+    position: relative;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: -80px auto 20px;
+    border: 5px solid #000;
+    background: #2d2d2d;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.title {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.company {
+    font-size: 18px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+.contact-info {
+    text-align: left;
+    margin: 25px 0;
+    padding: 0 10px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.contact-item svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    fill: #888;
+    flex-shrink: 0;
+}
+
+.contact-item a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-item a:hover {
+    color: #fff;
+}
+
+.download-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+.download-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 480px) {
+    .video-banner {
+        height: 200px;
+    }
+
+    .profile-section {
+        padding: 25px 20px;
+    }
+
+    .name {
+        font-size: 24px;
+    }
+
+    .company {
+        font-size: 16px;
+    }
+}
