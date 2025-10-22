@@ -3,15 +3,21 @@ const urlParams = new URLSearchParams(window.location.search);
 const employeeId = urlParams.get('id') || '1'; // Default to ID 1 if no parameter
 
 let currentEmployee = null;
+let companyConfig = null;
 let currentSlide = 0;
 let carouselImages = [];
 let autoSlideInterval = null;
 
-// Load employee data
+// Load both employee and company data
 async function loadEmployeeData() {
     try {
-        const response = await fetch('employees.json');
-        const data = await response.json();
+        // Load company config first
+        const configResponse = await fetch('config.json');
+        companyConfig = await configResponse.json();
+        
+        // Load employee data
+        const employeeResponse = await fetch('employees.json');
+        const data = await employeeResponse.json();
         
         // Find employee by ID
         currentEmployee = data.employees.find(emp => emp.id === employeeId);
@@ -22,8 +28,8 @@ async function loadEmployeeData() {
             showError('Employee not found');
         }
     } catch (error) {
-        console.error('Error loading employee data:', error);
-        showError('Failed to load employee data');
+        console.error('Error loading data:', error);
+        showError('Failed to load data');
     }
 }
 
@@ -32,7 +38,7 @@ function populateCard(employee) {
     // Update text content
     document.getElementById('name').textContent = employee.name;
     document.getElementById('jobTitle').textContent = employee.jobTitle;
-    document.getElementById('companyName').textContent = employee.company;
+    document.getElementById('companyName').textContent = companyConfig.company.name;
     
     // Update contact information
     const emailElement = document.getElementById('email');
@@ -43,19 +49,19 @@ function populateCard(employee) {
     phoneElement.textContent = employee.phone;
     phoneElement.href = `tel:${employee.phone}`;
     
-    document.getElementById('address').textContent = employee.address;
+    document.getElementById('address').textContent = companyConfig.company.address;
     
     // Update reservation button
     const reserveBtn = document.getElementById('reserveBtn');
-    reserveBtn.href = employee.reservationUrl;
+    reserveBtn.href = companyConfig.company.reservationUrl;
     
     // Update profile image
     const profileImg = document.getElementById('profileImg');
     profileImg.src = employee.profileImage;
     profileImg.alt = employee.name;
     
-    // Initialize carousel with dish images
-    carouselImages = employee.dishImages || [];
+    // Initialize carousel with standardized company dish images
+    carouselImages = companyConfig.company.dishImages || [];
     initializeCarousel();
     
     // Update page title
@@ -146,12 +152,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // vCard download function
 function downloadVCard() {
-    if (!currentEmployee) {
-        alert('Employee data not loaded');
+    if (!currentEmployee || !companyConfig) {
+        alert('Data not loaded');
         return;
     }
     
-    const { name, jobTitle, company, email, phone, address } = currentEmployee;
+    const name = currentEmployee.name;
+    const jobTitle = currentEmployee.jobTitle;
+    const company = companyConfig.company.name;
+    const email = currentEmployee.email;
+    const phone = currentEmployee.phone;
+    const address = companyConfig.company.address;
 
     // Create vCard content
     const vCard = `BEGIN:VCARD
