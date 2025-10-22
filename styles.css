@@ -21,6 +21,25 @@ body {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 3px solid #d4af37;
+    position: relative;
+}
+
+.card-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    padding: 3px;
+    background: linear-gradient(135deg, #d4af37, #f4e5a1, #d4af37, #c9a961);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .video-banner {
@@ -125,35 +144,52 @@ body {
     color: #fff;
 }
 
-.download-btn {
+.button-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn {
     background: #fff;
     color: #000;
     border: none;
-    padding: 15px 40px;
+    padding: 15px 30px;
     border-radius: 50px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
-    margin-top: 20px;
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
 }
 
-.download-btn:hover {
+.btn:hover {
     background: #e0e0e0;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
-.download-btn:active {
+.btn:active {
     transform: translateY(0);
 }
 
-.download-btn svg {
+.btn svg {
     width: 20px;
     height: 20px;
+}
+
+.btn-reserve {
+    background: linear-gradient(135deg, #d4af37, #f4e5a1);
+    color: #000;
+}
+
+.btn-reserve:hover {
+    background: linear-gradient(135deg, #c9a961, #d4af37);
 }
 
 @media (max-width: 480px) {
