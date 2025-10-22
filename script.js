@@ -60,6 +60,12 @@ function populateCard(employee) {
     profileImg.src = employee.profileImage;
     profileImg.alt = employee.name;
     
+    // Update video banner
+    const videoSource = document.getElementById('videoSource');
+    const video = document.getElementById('bannerVideo');
+    videoSource.src = companyConfig.company.videoUrl;
+    video.load();
+    
     // Initialize carousel with standardized company dish images
     carouselImages = companyConfig.company.dishImages || [];
     initializeCarousel();
@@ -139,7 +145,7 @@ function resetAutoSlide() {
 
 // Stop auto-slide when user hovers over carousel
 document.addEventListener('DOMContentLoaded', function() {
-    const carouselBanner = document.querySelector('.carousel-banner');
+    const carouselBanner = document.querySelector('.carousel-section .carousel-banner');
     if (carouselBanner) {
         carouselBanner.addEventListener('mouseenter', () => {
             clearInterval(autoSlideInterval);
@@ -149,6 +155,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Video loading handling
+const video = document.getElementById('bannerVideo');
+const placeholder = document.getElementById('videoPlaceholder');
+
+video.addEventListener('loadeddata', function() {
+    placeholder.style.display = 'none';
+    video.style.display = 'block';
+});
+
+video.addEventListener('error', function() {
+    placeholder.style.display = 'flex';
+    video.style.display = 'none';
+});
+
+// Initially hide video until it loads
+video.style.display = 'none';
 
 // vCard download function
 function downloadVCard() {
