@@ -42,29 +42,99 @@ body {
     z-index: 1;
 }
 
-.video-banner {
+.carousel-banner {
     width: 100%;
-    height: 250px;
+    height: 300px;
     position: relative;
     overflow: hidden;
     background: #1a1a1a;
 }
 
-.video-banner video {
+.carousel-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-slide {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    flex-shrink: 0;
 }
 
-.video-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 12px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #666;
-    font-size: 14px;
+    transition: all 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.carousel-btn:hover {
+    background: rgba(212, 175, 55, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.prev {
+    left: 15px;
+}
+
+.carousel-btn.next {
+    right: 15px;
+}
+
+.carousel-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.indicator.active {
+    background: #d4af37;
+    border-color: #fff;
+    transform: scale(1.2);
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .profile-section {
@@ -193,8 +263,22 @@ body {
 }
 
 @media (max-width: 480px) {
-    .video-banner {
-        height: 200px;
+    .carousel-banner {
+        height: 250px;
+    }
+
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        padding: 8px;
+    }
+
+    .carousel-btn.prev {
+        left: 10px;
+    }
+
+    .carousel-btn.next {
+        right: 10px;
     }
 
     .profile-section {
